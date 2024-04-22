@@ -8,9 +8,23 @@ class HomeController extends ChangeNotifier {
   bool isLoading = false;
   List<ActivityEntity?> activities = [];
 
-  DateTime currentDate = DateTime.parse('2023-11-29T10:00:00-03:00');
+  DateTime currentDate = DateTime.parse('2023-11-26T07:00:00-03:00');
+  bool favorited = false;
+
+  // GETTERS
   String get month => DateFormat('MMM').format(currentDate);
   String get year => DateFormat('yyyy').format(currentDate);
+  String get day => DateFormat('dd').format(currentDate);
+  List<ActivityEntity?> get activitiesByDay => activities.where((element) {
+        DateTime start = DateTime.parse(element!.start);
+        return start.day == currentDate.day;
+      }).toList();
+
+  //SETTERS
+  void changeDate(DateTime date) {
+    currentDate = date;
+    notifyListeners();
+  }
 
   //SERVICES
   ApiService apiService = ApiService();
@@ -19,6 +33,7 @@ class HomeController extends ChangeNotifier {
   Future<void> fetchActivities() async {
     loading();
     activities = await apiService.fetchActivities();
+    activities.addAll(await apiService.fetchActivitiesSecondPage());
     completed();
     notifyListeners();
   }

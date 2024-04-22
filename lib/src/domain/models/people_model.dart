@@ -52,6 +52,19 @@ class PeopleModel {
     };
   }
 
+  factory PeopleModel.fromRoute(Map<String, dynamic> map) {
+    return PeopleModel(
+      id: map['id'] as int,
+      title: map['title'] != null ? map['title'] as String : null,
+      name: map['name'] as String,
+      institution:
+          map['institution'] != null ? map['institution'] as String : null,
+      bio: map['bio'] != null ? map['bio'] as String : null,
+      picture: map['picture'] != null ? map['picture'] as String : null,
+      role: map['role'] as String,
+    );
+  }
+
   factory PeopleModel.fromMap(Map<String, dynamic> map) {
     return PeopleModel(
       id: map['id'] as int,

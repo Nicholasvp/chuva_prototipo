@@ -16,6 +16,7 @@ class ActivityEntity {
   final CategoryModel category;
   final String type;
   final List<PeopleModel?> listPeopleModel;
+  final String locations;
 
   ActivityEntity({
     required this.id,
@@ -27,6 +28,7 @@ class ActivityEntity {
     required this.category,
     required this.type,
     required this.listPeopleModel,
+    required this.locations,
   });
 
   ActivityEntity copyWith({
@@ -39,6 +41,7 @@ class ActivityEntity {
     CategoryModel? category,
     String? type,
     List<PeopleModel?>? listPeopleModel,
+    String? locations,
   }) {
     return ActivityEntity(
       id: id ?? this.id,
@@ -50,6 +53,7 @@ class ActivityEntity {
       category: category ?? this.category,
       type: type ?? this.type,
       listPeopleModel: listPeopleModel ?? this.listPeopleModel,
+      locations: locations ?? this.locations,
     );
   }
 
@@ -64,9 +68,30 @@ class ActivityEntity {
       'category': category.toMap(),
       'type': type,
       'listPeopleModel': listPeopleModel.map((x) => x?.toMap()).toList(),
+      'locations': locations,
     };
   }
 
+  factory ActivityEntity.fromRoute(Map<String, dynamic> map) {
+    return ActivityEntity(
+      id: map['id'] as int,
+      changed: map['changed'] as int,
+      start: map['start'] as String,
+      end: map['end'] as String,
+      title: map['title'] as String,
+      description:
+          map['description'] != null ? map['description'] as String : null,
+      category:
+          CategoryModel.fromRoute(map['category'] as Map<String, dynamic>),
+      type: map['type'] as String,
+      listPeopleModel: List<PeopleModel?>.from(
+        (map['listPeopleModel']).map<PeopleModel?>(
+          (x) => PeopleModel.fromRoute(x as Map<String, dynamic>),
+        ),
+      ),
+      locations: map['locations'] as String,
+    );
+  }
   factory ActivityEntity.fromMap(Map<String, dynamic> map) {
     return ActivityEntity(
       id: map['id'] as int,
@@ -84,6 +109,7 @@ class ActivityEntity {
           (x) => PeopleModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
+      locations: map['locations'][0]['title']['pt-br'] as String,
     );
   }
 

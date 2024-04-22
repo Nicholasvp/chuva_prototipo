@@ -6,6 +6,7 @@ class CategoryModel {
   final String title;
   final String? color;
   final String? background;
+
   CategoryModel({
     required this.id,
     required this.title,
@@ -36,6 +37,15 @@ class CategoryModel {
     };
   }
 
+  factory CategoryModel.fromRoute(Map<String, dynamic> map) {
+    return CategoryModel(
+      id: map['id'] as int,
+      title: map['title'] as String,
+      color: map['color'] != null ? map['color'] as String : null,
+      background:
+          map['background'] != null ? map['background'] as String : null,
+    );
+  }
   factory CategoryModel.fromMap(Map<String, dynamic> map) {
     return CategoryModel(
       id: map['id'] as int,

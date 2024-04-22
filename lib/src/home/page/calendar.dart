@@ -5,6 +5,7 @@ import 'package:chuva_prototipo/src/widgets/home_app_bar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
+import 'package:go_router/go_router.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({super.key});
@@ -45,56 +46,62 @@ class _CalendarState extends State<Calendar> {
                 else
                   Expanded(
                     child: ListView.builder(
-                      itemCount: controller.activities.length,
+                      itemCount: controller.activitiesByDay.length,
                       itemBuilder: (context, index) {
-                        final activity = controller.activities[index]!;
-                        return Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8)),
-                            border: Border(
-                              left: BorderSide(
-                                  color: fromCssColor(
-                                      activity.category.color ?? '#767a79'),
-                                  width: 8),
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 1,
-                                blurRadius: 2,
-                                offset: const Offset(0, 1),
-                              ),
-                            ],
+                        final activity = controller.activitiesByDay[index]!;
+                        return InkWell(
+                          onTap: () => context.push(
+                            '/activiy',
+                            extra: activity.toMap(),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 8),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  controller.getLabel(activity),
-                                  textAlign: TextAlign.start,
-                                ),
-                                Text(
-                                  activity.title,
-                                  textAlign: TextAlign.start,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                Text(
-                                  controller.getPeople(activity),
-                                  textAlign: TextAlign.start,
-                                  style: TextStyle(
-                                    color: fromCssColor('#767a79'),
-                                  ),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(8)),
+                              border: Border(
+                                left: BorderSide(
+                                    color: fromCssColor(
+                                        activity.category.color ?? '#767a79'),
+                                    width: 8),
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 1,
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 1),
                                 ),
                               ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 12, vertical: 8),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    controller.getLabel(activity),
+                                    textAlign: TextAlign.start,
+                                  ),
+                                  Text(
+                                    activity.title,
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Text(
+                                    controller.getPeople(activity),
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      color: fromCssColor('#767a79'),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );

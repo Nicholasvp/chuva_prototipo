@@ -1,4 +1,5 @@
 import 'package:chuva_prototipo/src/routes/routes.dart';
+
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -8,6 +9,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: router,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

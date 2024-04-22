@@ -36,27 +36,52 @@ class CalendarBar extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           DateButtom(
-            onTap: () {},
+            controller: controller,
+            onTap: () {
+              controller.changeDate(
+                DateTime(2023, 11, 26),
+              );
+            },
             label: '26',
           ),
           const SizedBox(width: 10),
           DateButtom(
-            onTap: () {},
+            controller: controller,
+            onTap: () {
+              controller.changeDate(
+                DateTime(2023, 11, 27),
+              );
+            },
             label: '27',
           ),
           const SizedBox(width: 10),
           DateButtom(
-            onTap: () {},
+            controller: controller,
+            onTap: () {
+              controller.changeDate(
+                DateTime(2023, 11, 28),
+              );
+            },
             label: '28',
           ),
           const SizedBox(width: 10),
           DateButtom(
-            onTap: () {},
+            controller: controller,
+            onTap: () {
+              controller.changeDate(
+                DateTime(2023, 11, 29),
+              );
+            },
             label: '29',
           ),
           const SizedBox(width: 10),
           DateButtom(
-            onTap: () {},
+            controller: controller,
+            onTap: () {
+              controller.changeDate(
+                DateTime(2023, 11, 30),
+              );
+            },
             label: '30',
           ),
         ],
