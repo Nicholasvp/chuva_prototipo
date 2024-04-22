@@ -39,4 +39,11 @@ class HomeController extends ChangeNotifier {
 
     return "${activity.type} de ${DateFormat('HH:mm').format(start)} até ${DateFormat('HH:mm').format(end)}";
   }
+
+  String getPeople(ActivityEntity activity) {
+    if (activity.listPeopleModel.isEmpty) {
+      return '';
+    }
+    return activity.listPeopleModel.map((e) => e!.name).join(', ');
+  }
 }

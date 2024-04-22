@@ -2,12 +2,14 @@
 import 'dart:convert';
 
 class PeopleModel {
-  final String id;
-  final String title;
+  final int id;
+  final String? title;
   final String name;
-  final String institution;
-  final String bio;
-  final String picture;
+  final String? institution;
+  final String? bio;
+  final String? picture;
+  final String role;
+
   PeopleModel({
     required this.id,
     required this.title,
@@ -15,15 +17,17 @@ class PeopleModel {
     required this.institution,
     required this.bio,
     required this.picture,
+    required this.role,
   });
 
   PeopleModel copyWith({
-    String? id,
+    int? id,
     String? title,
     String? name,
     String? institution,
     String? bio,
     String? picture,
+    String? role,
   }) {
     return PeopleModel(
       id: id ?? this.id,
@@ -32,6 +36,7 @@ class PeopleModel {
       institution: institution ?? this.institution,
       bio: bio ?? this.bio,
       picture: picture ?? this.picture,
+      role: role ?? this.role,
     );
   }
 
@@ -43,17 +48,20 @@ class PeopleModel {
       'institution': institution,
       'bio': bio,
       'picture': picture,
+      'role': role,
     };
   }
 
   factory PeopleModel.fromMap(Map<String, dynamic> map) {
     return PeopleModel(
-      id: map['id'] as String,
-      title: map['title'] as String,
+      id: map['id'] as int,
+      title: map['title'] != null ? map['title'] as String : null,
       name: map['name'] as String,
-      institution: map['institution'] as String,
-      bio: map['bio'] as String,
-      picture: map['picture'] as String,
+      institution:
+          map['institution'] != null ? map['institution'] as String : null,
+      bio: map['bio']['pt-br'] != null ? map['bio']['pt-br'] as String : null,
+      picture: map['picture'] != null ? map['picture'] as String : null,
+      role: map['role']['label']['pt-br'] as String,
     );
   }
 
@@ -64,7 +72,7 @@ class PeopleModel {
 
   @override
   String toString() {
-    return 'PeopleModel(id: $id, title: $title, name: $name, institution: $institution, bio: $bio, picture: $picture)';
+    return 'PeopleModel(id: $id, title: $title, name: $name, institution: $institution, bio: $bio, picture: $picture, role: $role)';
   }
 
   @override
@@ -76,7 +84,8 @@ class PeopleModel {
         other.name == name &&
         other.institution == institution &&
         other.bio == bio &&
-        other.picture == picture;
+        other.picture == picture &&
+        other.role == role;
   }
 
   @override
@@ -86,6 +95,7 @@ class PeopleModel {
         name.hashCode ^
         institution.hashCode ^
         bio.hashCode ^
-        picture.hashCode;
+        picture.hashCode ^
+        role.hashCode;
   }
 }

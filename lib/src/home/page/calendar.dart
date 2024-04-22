@@ -87,6 +87,13 @@ class _CalendarState extends State<Calendar> {
                                     fontSize: 16,
                                   ),
                                 ),
+                                Text(
+                                  controller.getPeople(activity),
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    color: fromCssColor('#767a79'),
+                                  ),
+                                ),
                               ],
                             ),
                           ),

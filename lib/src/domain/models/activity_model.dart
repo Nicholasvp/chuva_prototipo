@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:chuva_prototipo/src/domain/models/category_model.dart';
 import 'package:chuva_prototipo/src/domain/models/people_model.dart';
 
@@ -13,7 +15,7 @@ class ActivityEntity {
   final String? description;
   final CategoryModel category;
   final String type;
-  final PeopleModel? peopleModel;
+  final List<PeopleModel?> listPeopleModel;
 
   ActivityEntity({
     required this.id,
@@ -24,7 +26,7 @@ class ActivityEntity {
     this.description,
     required this.category,
     required this.type,
-    required this.peopleModel,
+    required this.listPeopleModel,
   });
 
   ActivityEntity copyWith({
@@ -36,7 +38,7 @@ class ActivityEntity {
     String? description,
     CategoryModel? category,
     String? type,
-    PeopleModel? peopleModel,
+    List<PeopleModel?>? listPeopleModel,
   }) {
     return ActivityEntity(
       id: id ?? this.id,
@@ -47,7 +49,7 @@ class ActivityEntity {
       description: description ?? this.description,
       category: category ?? this.category,
       type: type ?? this.type,
-      peopleModel: peopleModel ?? this.peopleModel,
+      listPeopleModel: listPeopleModel ?? this.listPeopleModel,
     );
   }
 
@@ -61,7 +63,7 @@ class ActivityEntity {
       'description': description,
       'category': category.toMap(),
       'type': type,
-      'peopleModel': peopleModel?.toMap(),
+      'listPeopleModel': listPeopleModel.map((x) => x?.toMap()).toList(),
     };
   }
 
@@ -77,9 +79,11 @@ class ActivityEntity {
           : null,
       category: CategoryModel.fromMap(map['category'] as Map<String, dynamic>),
       type: map['type']['title']['pt-br'] as String,
-      peopleModel: map['peopleModel'] != null
-          ? PeopleModel.fromMap(map['peopleModel'] as Map<String, dynamic>)
-          : null,
+      listPeopleModel: List<PeopleModel?>.from(
+        (map['people'] as List).map<PeopleModel?>(
+          (x) => PeopleModel.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
     );
   }
 
@@ -90,7 +94,7 @@ class ActivityEntity {
 
   @override
   String toString() {
-    return 'ActivityEntity(id: $id, changed: $changed, start: $start, end: $end, title: $title, description: $description, category: $category, type: $type, peopleModel: $peopleModel)';
+    return 'ActivityEntity(id: $id, changed: $changed, start: $start, end: $end, title: $title, description: $description, category: $category, type: $type, listPeopleModel: $listPeopleModel)';
   }
 
   @override
@@ -105,7 +109,7 @@ class ActivityEntity {
         other.description == description &&
         other.category == category &&
         other.type == type &&
-        other.peopleModel == peopleModel;
+        listEquals(other.listPeopleModel, listPeopleModel);
   }
 
   @override
@@ -118,6 +122,6 @@ class ActivityEntity {
         description.hashCode ^
         category.hashCode ^
         type.hashCode ^
-        peopleModel.hashCode;
+        listPeopleModel.hashCode;
   }
 }
