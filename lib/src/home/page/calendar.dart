@@ -51,7 +51,7 @@ class _CalendarState extends State<Calendar> {
                         final activity = controller.activitiesByDay[index]!;
                         return InkWell(
                           onTap: () => context.push(
-                            '/activiy',
+                            '/activity',
                             extra: activity.toMap(),
                           ),
                           child: Container(
