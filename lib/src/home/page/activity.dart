@@ -15,24 +15,25 @@ class Activity extends StatelessWidget {
     ActivityEntity activityEntity = ActivityEntity.fromRoute(activity);
     return Scaffold(
       appBar: AppBar(
-          elevation: 5,
-          centerTitle: true,
-          backgroundColor: fromCssColor('#4975b1'),
-          title: Text(
-            'Chuva 💜 Flutter',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 20,
-                color: fromCssColor('#ffffff'),
-                fontWeight: FontWeight.bold),
+        elevation: 5,
+        centerTitle: true,
+        backgroundColor: fromCssColor('#4975b1'),
+        title: Text(
+          'Chuva 💜 Flutter',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20,
+              color: fromCssColor('#ffffff'),
+              fontWeight: FontWeight.bold),
+        ),
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.white,
           ),
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.white,
-            ),
-            onPressed: () => context.pop(),
-          )),
+          onPressed: () => context.go('/'),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,10 +48,14 @@ class Activity extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            Text(
-              activityEntity.title,
-              textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Container(
+              margin: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                activityEntity.title,
+                textAlign: TextAlign.center,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
             ),
             const SizedBox(height: 20),
             Row(
@@ -90,6 +95,7 @@ class Activity extends StatelessWidget {
             ),
             ListView.builder(
               shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: activityEntity.listPeopleModel.length,
               itemBuilder: (context, index) {
                 return InkWell(

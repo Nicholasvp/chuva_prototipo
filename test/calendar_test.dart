@@ -13,7 +13,6 @@ void main() {
       expect(find.text('2023'), findsOneWidget);
       expect(find.text('26'), findsOneWidget);
       expect(find.text('28'), findsOneWidget);
-      await Future.delayed(const Duration(seconds: 1));
       expect(find.text('Mesa redonda de 07:00 até 08:00'), findsOneWidget);
     });
 

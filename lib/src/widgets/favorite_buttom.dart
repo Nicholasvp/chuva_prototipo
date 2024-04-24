@@ -17,7 +17,8 @@ class FavoriteButtom extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(10),
           child: ElevatedButton.icon(
-            onPressed: () => controller.toggleFavorite(),
+            onPressed: () =>
+                controller.isLoading ? null : controller.toggleFavorite(),
             style: ElevatedButton.styleFrom(
               alignment: Alignment.center,
               fixedSize: const Size(double.maxFinite, 40),

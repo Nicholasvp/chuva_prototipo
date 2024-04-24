@@ -11,7 +11,7 @@ class ActivityController extends ChangeNotifier {
         DateTime.parse(activityEntity.start).subtract(const Duration(hours: 3));
     DateTime endAt =
         DateTime.parse(activityEntity.end).subtract(const Duration(hours: 3));
-    String fomartDate = DateFormat('EEEE').format(startAt);
+    String fomartDate = DateFormat('EEEE', 'pt_BR').format(startAt);
     return '$fomartDate ${DateFormat('HH:mm').format(startAt)}h - ${DateFormat('HH:mm').format(endAt)}h';
   }
 
@@ -38,7 +38,7 @@ class ActivityController extends ChangeNotifier {
     if (match != null && match.groupCount >= 1) {
       return match.group(1); // Retorna o conteúdo dentro das tags <p>
     } else {
-      return "Nenhum conteúdo encontrado";
+      return "";
     }
   }
 }
